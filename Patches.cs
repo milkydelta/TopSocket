@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using TopSocket.JSON;
 
 namespace TopSocket;
+
 class Patches
 {
 

@@ -7,19 +7,20 @@ internal class WSBehaviour : WebSocketBehavior
 {
     private Plugin plugin;
 
-    public void AddToEventHandler (Plugin plug)
+    public void AddToEventHandler(Plugin plug)
     {
         plugin = plug;
         plugin.BroadcastEvent += SendText;
     }
 
-    void SendText(object src, BroadcastEventArgs e){
+    void SendText(object src, BroadcastEventArgs e)
+    {
         Send(e.text);
     }
 
     protected override void OnOpen()
     {
-        if (Plugin.instance != null){AddToEventHandler(Plugin.instance);}
+        if (Plugin.instance != null) { AddToEventHandler(Plugin.instance); }
 
         Plugin.Logger.LogInfo("WebSocket Open from " + this.Context.UserEndPoint);
         Send("hello!");

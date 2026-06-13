@@ -22,14 +22,14 @@ public class Plugin : BaseUnityPlugin
     internal static Plugin instance;
 
     internal Harmony harmony;
-        
+
     private void Awake()
     {
         // Plugin startup logic
         Logger = base.Logger;
-        
+
         instance = this;
-        
+
         srv = new HttpServer(9347);
         srv.OnGet += HttpOnGet;
         srv.AddWebSocketService<WSBehaviour>("/sock");
@@ -37,7 +37,7 @@ public class Plugin : BaseUnityPlugin
 
         harmony = Harmony.CreateAndPatchAll(typeof(Patches));
 
-        Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");        
+        Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
     }
 
     private void HttpOnGet(object sender, HttpRequestEventArgs e)
@@ -72,7 +72,7 @@ public class Plugin : BaseUnityPlugin
 
     internal void Broadcast(string text)
     {
-        Logger.LogInfo("Try Broadcast:"+text);
+        Logger.LogInfo("Try Broadcast:" + text);
         //Apparently, WebSocketSharp's Broadcast function is broken in some way.
         //My editor insists it's there. I can get the overloads and their descriptions.
         //If I try to call it, though, I get this:
@@ -82,14 +82,16 @@ public class Plugin : BaseUnityPlugin
         //So I'm going to need to write a replacement.
 
         //srv.WebSocketServices.Broadcast(text);
-        try{
+        try
+        {
             BroadcastEvent?.Invoke(this, new BroadcastEventArgs(text));
         }
-        catch (Exception e){
+        catch (Exception e)
+        {
             Logger.LogError("Exception in Plugin.Broadcast");
             Logger.LogError(e.ToString());
         }
-        
+
     }
 
     private void OnDestroy()

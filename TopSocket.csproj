@@ -23,19 +23,21 @@
 
   <PropertyGroup>
     <PluginCopyTargetDir Condition="$(Configuration)==Debug">$(SteamAppsCommon)/PEAK/BepInEx/plugins</PluginCopyTargetDir>
-    <PluginCopyTargetDir Condition="$(Configuration)!=Debug">bin/$(Configuration)/$(TargetFramework)/BepInEx/plugins</PluginCopyTargetDir>
+    <PluginCopyTargetDir Condition="$(Configuration)!=Debug">
+      bin/$(Configuration)/$(TargetFramework)/BepInEx/plugins</PluginCopyTargetDir>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginCopyTargetDir)"/>
-    <Copy SourceFiles="$(PkgWebSocketSharp)/lib/websocket-sharp.dll" DestinationFolder="$(PluginCopyTargetDir)"/>
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginCopyTargetDir)" />
+    <Copy SourceFiles="$(PkgWebSocketSharp)/lib/websocket-sharp.dll"
+      DestinationFolder="$(PluginCopyTargetDir)" />
   </Target>
 
   <ItemGroup>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
     <PackageReference Include="BepInEx.Core" Version="5.*" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-    <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" GeneratePathProperty="true"/>
+    <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" GeneratePathProperty="true" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,8 +60,9 @@
       <HintPath>$(GameDataDirectory)\Managed\PhotonRealtime.dll</HintPath>
     </Reference>
   </ItemGroup>
-  
+
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2"
+      PrivateAssets="all" />
   </ItemGroup>
 </Project>

@@ -10,7 +10,8 @@ internal class JEvent<T>
 
     public T data;
 
-    public JEvent(string type, T obj){
+    public JEvent(string type, T obj)
+    {
         eventType = type;
         data = obj;
     }
