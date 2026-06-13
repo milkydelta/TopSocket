@@ -20,6 +20,8 @@ public class Plugin : BaseUnityPlugin
     internal event BroadcastEventHandler BroadcastEvent;
 
     internal static Plugin instance;
+
+    internal Harmony harmony;
         
     private void Awake()
     {
@@ -29,20 +31,18 @@ public class Plugin : BaseUnityPlugin
         instance = this;
         
         srv = new HttpServer(9347);
-
-        srv.OnGet += htHandle;
+        srv.OnGet += HttpOnGet;
         srv.AddWebSocketService<WSBehaviour>("/sock");
-
         srv.Start();
 
-        Harmony.CreateAndPatchAll(typeof(Patches));
+        harmony = Harmony.CreateAndPatchAll(typeof(Patches));
 
         Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");        
     }
 
-    private void htHandle(object sender, HttpRequestEventArgs e)
+    private void HttpOnGet(object sender, HttpRequestEventArgs e)
     {
-        Plugin.Logger.LogInfo("HTTP GET!");
+        Logger.LogInfo("HTTP GET!");
         if (e.Request.RawUrl != "/status.json")
         {
             e.Response.StatusCode = 404;
@@ -64,7 +64,7 @@ public class Plugin : BaseUnityPlugin
         }
         */
 
-        string jsoncontent = JsonConvert.SerializeObject(new JSStatus());
+        string jsoncontent = JsonConvert.SerializeObject(new JSON.JStatus());
         e.Response.WriteContent(Encoding.UTF8.GetBytes(jsoncontent));
 
         e.Response.Close();
@@ -72,6 +72,7 @@ public class Plugin : BaseUnityPlugin
 
     internal void Broadcast(string text)
     {
+        Logger.LogInfo("Try Broadcast:"+text);
         //Apparently, WebSocketSharp's Broadcast function is broken in some way.
         //My editor insists it's there. I can get the overloads and their descriptions.
         //If I try to call it, though, I get this:
@@ -79,9 +80,9 @@ public class Plugin : BaseUnityPlugin
         //That happens if I call it from this class, or from a Harmony patch.
 
         //So I'm going to need to write a replacement.
-        Logger.LogInfo("Try Broadcast:"+text);
+
+        //srv.WebSocketServices.Broadcast(text);
         try{
-            //srv.WebSocketServices.Broadcast(text);
             BroadcastEvent?.Invoke(this, new BroadcastEventArgs(text));
         }
         catch (Exception e){

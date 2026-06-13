@@ -21,7 +21,7 @@ internal class WSBehaviour : WebSocketBehavior
     {
         if (Plugin.instance != null){AddToEventHandler(Plugin.instance);}
 
-        Plugin.Logger.LogInfo("WebSocket Open");
+        Plugin.Logger.LogInfo("WebSocket Open from " + this.Context.UserEndPoint);
         Send("hello!");
     }
     protected override void OnClose(CloseEventArgs e)

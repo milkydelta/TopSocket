@@ -2,7 +2,9 @@ using UnityEngine;
 using TopSocket;
 using UnityEngine.SceneManagement;
 
-internal class JSGame
+namespace TopSocket.JSON;
+
+internal class JGame
 {
     public string pluginVersion = MyPluginInfo.PLUGIN_VERSION;
     public string gameVersion = Application.version;
