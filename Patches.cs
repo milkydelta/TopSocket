@@ -1,5 +1,7 @@
 using System;
 using HarmonyLib;
+using Newtonsoft.Json;
+using TopSocket.JSON;
 
 namespace TopSocket;
 class Patches
@@ -17,6 +19,6 @@ class Patches
     static void SignalCharacterFall(Character __instance)
     {
         Plugin.Logger.LogInfo(__instance.characterName + " just fell!");
-        Plugin.instance.Broadcast(__instance.characterName + " just fell!");
+        Plugin.instance.Broadcast(JsonConvert.SerializeObject(new JEvent<JCharacter>("fall", new JCharacter(__instance))));
     }
 }
