@@ -16,6 +16,8 @@ public class Plugin : BaseUnityPlugin
     internal static new ManualLogSource Logger;
 
     static HttpServer srv;
+
+    internal event BroadcastEventHandler BroadcastEvent;
         
     private void Awake()
     {
@@ -25,13 +27,22 @@ public class Plugin : BaseUnityPlugin
         srv = new HttpServer(9347);
 
         srv.OnGet += htHandle;
-        srv.AddWebSocketService<WSBehaviour>("/sock");
+        srv.AddWebSocketService<WSBehaviour>("/sock",  WSInitialiser);
 
         srv.Start();
+
+        Patches.plug = this;
 
         Harmony.CreateAndPatchAll(typeof(Patches));
 
         Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");        
+    }
+
+    private WSBehaviour WSInitialiser()
+    {
+        WSBehaviour x = new WSBehaviour();
+        x.AddToEventHandler(this);
+        return x;
     }
 
     private void htHandle(object sender, HttpRequestEventArgs e)
@@ -64,7 +75,7 @@ public class Plugin : BaseUnityPlugin
         e.Response.Close();
     }
 
-    internal static void Broadcast(string text)
+    internal void Broadcast(string text)
     {
         //Apparently, WebSocketSharp's Broadcast function is broken in some way.
         //My editor insists it's there. I can get the overloads and their descriptions.
@@ -75,7 +86,8 @@ public class Plugin : BaseUnityPlugin
         //So I'm going to need to write a replacement.
         Logger.LogInfo("Try Broadcast:"+text);
         try{
-            srv.WebSocketServices.Broadcast(text);
+            //srv.WebSocketServices.Broadcast(text);
+            BroadcastEvent?.Invoke(this, new BroadcastEventArgs(text));
         }
         catch (Exception e){
             Logger.LogError("Exception in Plugin.Broadcast");
