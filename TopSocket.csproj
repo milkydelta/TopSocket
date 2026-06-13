@@ -31,6 +31,18 @@
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginCopyTargetDir)" />
     <Copy SourceFiles="$(PkgWebSocketSharp)/lib/websocket-sharp.dll"
       DestinationFolder="$(PluginCopyTargetDir)" />
+
+    <!-- Not sure how I'm going to license this. If the license needs to be distributed alongside
+    binaries, name it "LICENSE.ProjectName". Otherwise, drop the extension.-->
+    <Copy SourceFiles="LICENSE.$(AssemblyName)"
+      DestinationFiles="$(PluginCopyTargetDir)/LICENSE.$(AssemblyName).txt"
+      Condition="Exists('LICENSE.$(AssemblyName)')" />
+
+    <!-- No WebSocketSharp code is included in this repo, but builds will copy the DLL. If you
+    distribute that DLL, you should include the license (MIT).-->
+    <Copy SourceFiles="LICENSE.WebSocketSharp"
+      DestinationFiles="$(PluginCopyTargetDir)/LICENSE.WebSocketSharp.txt"
+      Condition="Exists('LICENSE.WebSocketSharp')" />
   </Target>
 
   <ItemGroup>
