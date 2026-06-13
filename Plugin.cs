@@ -24,14 +24,14 @@ public class Plugin : BaseUnityPlugin
         // Plugin startup logic
         Logger = base.Logger;
         
+        Patches.plug = this;
+        
         srv = new HttpServer(9347);
 
         srv.OnGet += htHandle;
-        srv.AddWebSocketService<WSBehaviour>("/sock",  WSInitialiser);
+        srv.AddWebSocketService<WSBehaviour>("/sock");
 
         srv.Start();
-
-        Patches.plug = this;
 
         Harmony.CreateAndPatchAll(typeof(Patches));
 
