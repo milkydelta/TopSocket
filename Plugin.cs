@@ -18,13 +18,15 @@ public class Plugin : BaseUnityPlugin
     static HttpServer srv;
 
     internal event BroadcastEventHandler BroadcastEvent;
+
+    internal static Plugin instance;
         
     private void Awake()
     {
         // Plugin startup logic
         Logger = base.Logger;
         
-        Patches.plug = this;
+        instance = this;
         
         srv = new HttpServer(9347);
 
@@ -36,13 +38,6 @@ public class Plugin : BaseUnityPlugin
         Harmony.CreateAndPatchAll(typeof(Patches));
 
         Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");        
-    }
-
-    private WSBehaviour WSInitialiser()
-    {
-        WSBehaviour x = new WSBehaviour();
-        x.AddToEventHandler(this);
-        return x;
     }
 
     private void htHandle(object sender, HttpRequestEventArgs e)

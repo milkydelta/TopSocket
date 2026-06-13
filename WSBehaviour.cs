@@ -19,9 +19,13 @@ internal class WSBehaviour : WebSocketBehavior
 
     protected override void OnOpen()
     {
-        if (Patches.plug != null){AddToEventHandler(Patches.plug);}
+        if (Plugin.instance != null){AddToEventHandler(Plugin.instance);}
 
         Plugin.Logger.LogInfo("WebSocket Open");
         Send("hello!");
+    }
+    protected override void OnClose(CloseEventArgs e)
+    {
+        plugin.BroadcastEvent -= SendText;
     }
 }
