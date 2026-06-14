@@ -7,6 +7,7 @@ using WebSocketSharp;
 using System.IO;
 using System.Text;
 using HarmonyLib;
+using System.Reflection;
 
 namespace TopSocket;
 
@@ -35,7 +36,7 @@ public class Plugin : BaseUnityPlugin
         srv.AddWebSocketService<WSBehaviour>("/sock");
         srv.Start();
 
-        harmony = Harmony.CreateAndPatchAll(typeof(Patches));
+        harmony = Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 
         Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
     }
@@ -72,7 +73,7 @@ public class Plugin : BaseUnityPlugin
 
     internal void Broadcast(string text)
     {
-        Logger.LogInfo("Try Broadcast:" + text);
+        //Logger.LogInfo("Try Broadcast:" + text);
         //Apparently, WebSocketSharp's Broadcast function is broken in some way.
         //My editor insists it's there. I can get the overloads and their descriptions.
         //If I try to call it, though, I get this:

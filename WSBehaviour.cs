@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+using TopSocket.JSON;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 
@@ -23,7 +25,7 @@ internal class WSBehaviour : WebSocketBehavior
         if (Plugin.instance != null) { AddToEventHandler(Plugin.instance); }
 
         Plugin.Logger.LogInfo("WebSocket Open from " + this.Context.UserEndPoint);
-        Send("hello!");
+        Send(JsonConvert.SerializeObject(new JEvent<JStatus>("greetings", new JStatus())));
     }
     protected override void OnClose(CloseEventArgs e)
     {
