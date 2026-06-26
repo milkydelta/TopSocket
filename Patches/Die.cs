@@ -1,4 +1,6 @@
 using HarmonyLib;
+using Newtonsoft.Json;
+using TopSocket.JSON;
 
 
 namespace TopSocket.Patches;
@@ -11,6 +13,6 @@ internal class Die
     static void SignalCharacterDie(Character __instance)
     {
         Plugin.Logger.LogInfo(__instance.characterName + " just died!");
-        Plugin.instance.Broadcast(__instance.characterName + " just died!");
+        Plugin.instance.Broadcast(JsonConvert.SerializeObject(new JEvent<JCharacter>("die", new JCharacter(__instance))));
     }
 }

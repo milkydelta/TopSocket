@@ -1,4 +1,6 @@
 using HarmonyLib;
+using Newtonsoft.Json;
+using TopSocket.JSON;
 
 
 namespace TopSocket.Patches;
@@ -11,6 +13,6 @@ internal class PassOut
     static void SignalCharacterPassOut(Character __instance)
     {
         Plugin.Logger.LogInfo(__instance.characterName + " just went to sleep!");
-        Plugin.instance.Broadcast(__instance.characterName + " just went to sleep!");
+        Plugin.instance.Broadcast(JsonConvert.SerializeObject(new JEvent<JCharacter>("passOut", new JCharacter(__instance))));
     }
 }

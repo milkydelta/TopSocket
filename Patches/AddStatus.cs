@@ -1,4 +1,6 @@
 using HarmonyLib;
+using Newtonsoft.Json;
+using TopSocket.JSON;
 
 
 namespace TopSocket.Patches;
@@ -18,8 +20,17 @@ internal class AddStatus
 
         if (!__result || holding == current) {return;}
 
-        string ae = __instance.character.characterName + " ADD " + statusType + (current-holding);
-        Plugin.Logger.LogInfo(ae);
-        Plugin.instance.Broadcast(ae);
+        //string ae = __instance.character.characterName + " ADD " + statusType + (current-holding);
+        //Plugin.Logger.LogInfo(ae);
+        
+
+        JEventStatus stat = new JEventStatus();
+        stat.method = JEventStatus.UpdateType.Add;
+        stat.type = statusType.ToString();
+        stat.change = current-holding;
+        stat.newVal = current;
+        stat.character = new JCharacter(__instance.character);
+
+        Plugin.instance.Broadcast(JsonConvert.SerializeObject(new JEvent<JEventStatus>("changeStatus", stat)));
     }
 }
