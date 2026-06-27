@@ -2,6 +2,7 @@ using HarmonyLib;
 using Newtonsoft.Json;
 using TopSocket.JSON;
 
+#pragma warning disable Harmony003 //stops complaints on statusType.ToString()
 
 namespace TopSocket.Patches;
 
