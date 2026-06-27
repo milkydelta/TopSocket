@@ -36,7 +36,8 @@ public class Plugin : BaseUnityPlugin
         srv.AddWebSocketService<WSBehaviour>("/sock");
         srv.Start();
 
-        harmony = Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+        harmony =  new Harmony(MyPluginInfo.PLUGIN_GUID);
+        harmony.PatchAll(Assembly.GetExecutingAssembly());
 
         Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
     }
