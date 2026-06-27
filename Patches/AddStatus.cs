@@ -1,6 +1,7 @@
 using HarmonyLib;
 using Newtonsoft.Json;
 using TopSocket.JSON;
+using UnityEngine;
 
 #pragma warning disable Harmony003 //stops complaints on statusType.ToString()
 
@@ -24,9 +25,12 @@ internal class AddStatus
         stat.method = JEventStatus.UpdateType.Add;
         stat.type = statusType.ToString();
         stat.change = current-__state;
+        stat.change = Mathf.Round(stat.change / CharacterAfflictions.STATUS_INCREMENT) * CharacterAfflictions.STATUS_INCREMENT;
         stat.newVal = current;
         stat.character = new JCharacter(__instance.character);
 
         Plugin.instance.Broadcast(JsonConvert.SerializeObject(new JEvent<JEventStatus>("changeStatus", stat)));
+
+        
     }
 }
