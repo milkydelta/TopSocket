@@ -9,21 +9,16 @@ namespace TopSocket.Patches;
 [HarmonyPatch(typeof(CharacterAfflictions), "SetStatus")]
 internal class SetStatus
 {
-    static float holding;
 
-    static void Prefix(CharacterAfflictions __instance, CharacterAfflictions.STATUSTYPE statusType)
+    static void Prefix(CharacterAfflictions __instance, CharacterAfflictions.STATUSTYPE statusType, out float __state)
     {
-        holding = __instance.GetCurrentStatus(statusType);
+        __state = __instance.GetCurrentStatus(statusType);
     }
-    static void Postfix(CharacterAfflictions __instance, CharacterAfflictions.STATUSTYPE statusType)
+    static void Postfix(CharacterAfflictions __instance, CharacterAfflictions.STATUSTYPE statusType, float __state)
     {
         float current = __instance.GetCurrentStatus(statusType);
 
-        if (holding == current) {return;}
-
-        //string ae = __instance.character.characterName + " SET " + statusType + current;
-        //Plugin.Logger.LogInfo(ae);
-        //Plugin.instance.Broadcast(ae);
+        if (__state == current) {return;}
 
         JEventStatus stat = new JEventStatus();
         stat.method = JEventStatus.UpdateType.Set;
