@@ -100,5 +100,7 @@ public class Plugin : BaseUnityPlugin
     {
         srv.Stop();
         Logger.LogInfo("Stopped Server");
+        harmony.UnpatchSelf();
+        Logger.LogInfo("Removed Patches");
     }
 }
