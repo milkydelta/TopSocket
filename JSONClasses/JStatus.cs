@@ -1,18 +1,26 @@
 
+using System.Collections.Generic;
+
 namespace TopSocket.JSON;
 
 internal class JStatus
 {
     public JGame game = new JGame();
     //definitely an object for the local player (check Character.localPlayer)
-    public JCharacter localCharacter = null;
+    public JPlayer localPlayer = null;
     //maybe an object for the current run (MapHandler and RunManager)
+    private List<JPlayer> players = new List<JPlayer>();
 
     public JStatus()
     {
-        if (Character.localCharacter != null)
+        if (Player.localPlayer != null)
         {
-            localCharacter = new JCharacter(Character.localCharacter);
+            localPlayer = new JPlayer(Player.localPlayer);
+        }
+
+        foreach (Player item in PlayerHandler.GetAllPlayers())
+        {
+            players.Add(new JPlayer(item));
         }
     }
 }
