@@ -5,7 +5,7 @@
     <AssemblyName>TopSocket</AssemblyName>
     <BepInExPluginGuid>moe.milkydelta.PEAK.TopSocket</BepInExPluginGuid>
     <Product>HTTP/WS Status</Product>
-    <Version>0.0.2</Version>
+    <Version>0.2.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RestoreAdditionalProjectSources>
