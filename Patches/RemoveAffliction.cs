@@ -1,5 +1,7 @@
 using HarmonyLib;
+using Newtonsoft.Json;
 using Peak.Afflictions;
+using TopSocket.JSON;
 
 
 namespace TopSocket.Patches;
@@ -9,8 +11,13 @@ internal class RemoveAffliction
 {
     static void Postfix(CharacterAfflictions __instance, Affliction affliction)
     {
-        string ae = __instance.character.characterName + " -AFF " + affliction.GetAfflictionType();
-        Plugin.Logger.LogInfo(ae);
-        Plugin.instance.Broadcast(ae);
+
+        Affliction.AfflictionType type = affliction.GetAfflictionType();
+
+        JEventCharacterString stat = new JEventCharacterString();
+        stat.str = type.ToString();
+        stat.character = new JCharacter(__instance.character);
+
+        Plugin.instance.Broadcast(JsonConvert.SerializeObject(new JEvent<JEventCharacterString>("removeAffliction", stat)));
     }
 }

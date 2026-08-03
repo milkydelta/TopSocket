@@ -1,5 +1,7 @@
 using HarmonyLib;
 using Peak.Afflictions;
+using TopSocket.JSON;
+using Newtonsoft.Json;
 
 
 namespace TopSocket.Patches;
@@ -27,8 +29,10 @@ internal class AddAffliction
 
         if (!(!then && now)){return;}
 
-        string ae = __instance.character.characterName + " +AFF " + type;
-        Plugin.Logger.LogInfo(ae);
-        Plugin.instance.Broadcast(ae);
+        JEventCharacterString stat = new JEventCharacterString();
+        stat.str = type.ToString();
+        stat.character = new JCharacter(__instance.character);
+
+        Plugin.instance.Broadcast(JsonConvert.SerializeObject(new JEvent<JEventCharacterString>("addAffliction", stat)));
     }
 }
