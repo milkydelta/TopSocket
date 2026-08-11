@@ -55,27 +55,35 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>$(GameDataDirectory)\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>$(GameDataDirectory)\Managed\Newtonsoft.Json.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>$(GameDataDirectory)\Managed\UnityEngine.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(GameDataDirectory)\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="PhotonUnityNetworking">
       <HintPath>$(GameDataDirectory)\Managed\PhotonUnityNetworking.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="PhotonRealtime">
       <HintPath>$(GameDataDirectory)\Managed\PhotonRealtime.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="Zorro.Core.Runtime">
       <HintPath>$(GameDataDirectory)\Managed\Zorro.Core.Runtime.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="Sirenix.Serialization">
       <HintPath>$(GameDataDirectory)\Managed\Sirenix.Serialization.dll</HintPath>
+      <Private>false</Private>
     </Reference>
 
   </ItemGroup>
