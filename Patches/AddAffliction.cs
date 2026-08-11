@@ -31,7 +31,7 @@ internal class AddAffliction
 
         JEventCharacterString stat = new JEventCharacterString();
         stat.str = type.ToString();
-        stat.character = new JCharacter(__instance.character);
+        stat.chr = new JCharacter(__instance.character);
 
         Plugin.instance.Broadcast(JsonConvert.SerializeObject(new JEvent<JEventCharacterString>("addAffliction", stat)));
     }

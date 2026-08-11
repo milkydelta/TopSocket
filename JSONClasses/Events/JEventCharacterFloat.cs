@@ -6,8 +6,14 @@ using Newtonsoft.Json.Converters;
 
 namespace TopSocket.JSON;
 
-internal class JEventCharacterString
+internal class JEventCharacterFloat
 {
-    public string str;
+    public float value;
     public JCharacter chr;
+
+    public JEventCharacterFloat(JCharacter c, float f)
+    {
+        value = f;
+        chr = c;
+    }
 }
