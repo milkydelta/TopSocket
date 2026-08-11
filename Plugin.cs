@@ -44,7 +44,7 @@ public class Plugin : BaseUnityPlugin
 
     private void HttpOnGet(object sender, HttpRequestEventArgs e)
     {
-        Logger.LogInfo("HTTP GET!");
+        //Logger.LogInfo("HTTP GET!");
         if (e.Request.RawUrl != "/status.json")
         {
             e.Response.StatusCode = 404;

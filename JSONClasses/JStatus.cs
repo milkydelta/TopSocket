@@ -11,6 +11,10 @@ internal class JStatus
     //maybe an object for the current run (MapHandler and RunManager)
     private List<JPlayer> players = new List<JPlayer>();
 
+    public JMap map = new JMap();
+
+    public JRun run = null;
+
     public JStatus()
     {
         if (Player.localPlayer != null)
@@ -21,6 +25,11 @@ internal class JStatus
         foreach (Player item in PlayerHandler.GetAllPlayers())
         {
             players.Add(new JPlayer(item));
+        }
+
+        if (GameHandler.IsOnIslandAndInitialized)
+        {
+            run = new JRun();
         }
     }
 }

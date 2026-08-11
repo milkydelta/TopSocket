@@ -71,6 +71,13 @@
     <Reference Include="PhotonRealtime">
       <HintPath>$(GameDataDirectory)\Managed\PhotonRealtime.dll</HintPath>
     </Reference>
+    <Reference Include="Zorro.Core.Runtime">
+      <HintPath>$(GameDataDirectory)\Managed\Zorro.Core.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Sirenix.Serialization">
+      <HintPath>$(GameDataDirectory)\Managed\Sirenix.Serialization.dll</HintPath>
+    </Reference>
+
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
