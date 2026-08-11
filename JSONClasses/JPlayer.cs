@@ -10,6 +10,8 @@ internal class JPlayer
     public JItem iT;
     public JBackpack backpack;
 
+    public int selectedSlot = -1;
+
     public JPlayer(Player player)
     {
         character = new JCharacter(player.character);
@@ -27,5 +29,10 @@ internal class JPlayer
         var sB = player.GetItemSlot(3);
 
         if (!sB.IsEmpty()) {backpack = new JBackpack(sB.data);}
+
+        if (player.character.refs.items.currentSelectedSlot.IsSome)
+        {
+            selectedSlot = player.character.refs.items.currentSelectedSlot.Value;
+        }
     }
 }

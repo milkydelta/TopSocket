@@ -10,4 +10,6 @@ internal class JGame
     public string gameVersion = Application.version;
     public string scene = SceneManager.GetActiveScene().name;
     public bool offlineMode = Photon.Pun.PhotonNetwork.OfflineMode;
+
+    public bool host = Photon.Pun.PhotonNetwork.IsMasterClient;
 }
