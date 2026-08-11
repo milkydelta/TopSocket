@@ -8,9 +8,9 @@ internal class JBackpack : JItem
     public JItem i2;
     public JItem i3;
 
-    public JBackpack(ItemInstanceData inst) : base(null, inst)
+    public JBackpack(Item it, ItemInstanceData inst) : base(it, inst)
     {
-        name = "Backpack";
+        //name = "Backpack";
 
         //System.Console.WriteLine("Constructor");
         BackpackData backData;

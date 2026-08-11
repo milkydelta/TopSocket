@@ -22,7 +22,7 @@ internal class JRun
         var rm = RunManager.Instance;
         if (rm != null)
         {
-            elapsed = rm.timeSinceRunStarted;
+            elapsed = rm.TimeSinceRunStarted;
             id = rm.RunId;
         }
 

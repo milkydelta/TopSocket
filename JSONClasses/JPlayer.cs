@@ -28,7 +28,7 @@ internal class JPlayer
 
         var sB = player.GetItemSlot(3);
 
-        if (!sB.IsEmpty()) {backpack = new JBackpack(sB.data);}
+        if (!sB.IsEmpty()) {backpack = new JBackpack(sB.prefab, sB.data);}
 
         if (player.character.refs.items.currentSelectedSlot.IsSome)
         {

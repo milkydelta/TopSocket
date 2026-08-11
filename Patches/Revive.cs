@@ -5,7 +5,7 @@ using TopSocket.JSON;
 
 namespace TopSocket.Patches;
 
-[HarmonyPatch(typeof(Character), "RPCA_Revive")]
+[HarmonyPatch(typeof(Character), "ReviveCharacter")]
 internal class Revive
 {
     
