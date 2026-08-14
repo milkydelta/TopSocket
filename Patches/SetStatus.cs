@@ -12,11 +12,11 @@ internal class SetStatus
 
     static void Prefix(CharacterAfflictions __instance, CharacterAfflictions.STATUSTYPE statusType, out float __state)
     {
-        __state = __instance.GetCurrentStatus(statusType);
+        __state = AddStatus.GetNumber(__instance, statusType);
     }
     static void Postfix(CharacterAfflictions __instance, CharacterAfflictions.STATUSTYPE statusType, float __state)
     {
-        float current = __instance.GetCurrentStatus(statusType);
+        float current = AddStatus.GetNumber(__instance, statusType);
 
         if (__state == current) {return;}
 

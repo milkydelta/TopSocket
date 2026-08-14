@@ -11,13 +11,22 @@ namespace TopSocket.Patches;
 internal class AddStatus
 {
 
+    internal static float GetNumber(CharacterAfflictions aff, CharacterAfflictions.STATUSTYPE statusType)
+    {
+        if (statusType == CharacterAfflictions.STATUSTYPE.Petrify)
+        {
+            return aff.character.data.petrifyAmount * 0.01f;
+        }
+        return aff.GetCurrentStatus(statusType);
+    }
+
     static void Prefix(CharacterAfflictions __instance, CharacterAfflictions.STATUSTYPE statusType, out float __state)
     {
-        __state = __instance.GetCurrentStatus(statusType);
+        __state = GetNumber(__instance, statusType);
     }
     static void Postfix(CharacterAfflictions __instance, bool __result, CharacterAfflictions.STATUSTYPE statusType, float __state)
     {
-        float current = __instance.GetCurrentStatus(statusType);
+        float current = GetNumber(__instance, statusType);
 
         if (!__result || __state == current) {return;}
 
